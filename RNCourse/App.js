@@ -13,7 +13,14 @@ export default function App() {
     // We can also nest our views
 
     <View style={styles.container}>
-      <Text>Hello World! React Native Time! 😎</Text>
+      <Text 
+        style={{
+          margin: 16, 
+          borderColor: 'red',
+          borderWidth: 3,
+          padding: 20 }}>
+        Hello World! React Native Time! 😎
+      </Text>
       <Text>Here is another text</Text>
       <Button title='Tap me!'/>
       <StatusBar style="auto" />
