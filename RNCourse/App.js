@@ -1,40 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 
 // Default Function
 export default function App() {
 
-  return (
-    
-    // Views are made to generally build containers and boxes
-    // Similar to Swift, it's like our main view, but the content needs to be placed into an element
-    // If you want to display text, you will need to use the "Text" component
-    // We can also nest our views
-
-    <View style={styles.container}>
-      <Text 
-        style={{
-          margin: 16, 
-          borderColor: 'red',
-          borderWidth: 3,
-          padding: 20 }}>
-        Hello World! React Native Time! 😎
-      </Text>
-      <Text>Here is another text</Text>
-      <Button title='Tap me!'/>
-      <StatusBar style="auto" />
-    </View>
-  );
+	return (
+		<View style={styles.appContainer}>
+			<View style={styles.inputContainer}>
+				<TextInput styles={styles.customInput} placeholder='Your course goal!!' />
+				<Button title="Add Goal" />
+			</View>
+		</View>
+	);
 }
 
 
-// Our styles
+// Our stylesheet object
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+	appContainer: {
+		padding: 50
+	},
+	container: {
+		flex: 1,
+		backgroundColor: '#fff',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	inputContainer: { // for flex box
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
+	customInput: {
+		borderWidth: 2,
+		borderColor: '#cccccc',
+		width: '80%',
+		marginRight: 8,
+		padding: 8
+	}
 });
