@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import { useState } from 'react'
 
 
@@ -9,6 +9,18 @@ export default function App() {
 
 	// for keeping the state of the content
 	const [enteredGoalText, setEnteredGoalText] = useState('');
+	const [courseGoals, setCourseGoals] = useState([]);
+
+	// Touchable Opacity Button
+	const AppButton = ({ onPress, title }) => (
+		<TouchableOpacity
+		  activeOpacity={0.8}
+		  onPress={onPress}
+		  style={styles.appButtonContainer}
+		>
+		  <Text style={styles.appButtonText}>{title}</Text>
+		</TouchableOpacity>
+	  );
 
 	// the input handler
 	function goalInputHandler(enteredText) {
@@ -19,7 +31,8 @@ export default function App() {
 
 	// add button hander
 	function addGoalHandler() {
-		console.log(enteredGoalText)
+		setCourseGoals(currentCourseGoals => [...courseGoals, enteredGoalText]); // recommended way to update your state
+		// console.log(enteredGoalText) // for debugging
 	};
 
 	return (
@@ -30,13 +43,13 @@ export default function App() {
 					styles={styles.customInput}
 					placeholder='Your course goal!!'
 					onChangeText={goalInputHandler} />
-				
-				<Button title="Add Goal" onPress={addGoalHandler} />
-			
+
+				<AppButton onPress={addGoalHandler} title="Add Goal"></AppButton>
+		
 			</View>
 
 			<View style={styles.goalsContainer}>
-				<Text>List of goals ...</Text>
+				{courseGoals.map((goal) => <Text key={goal}>{goal}</Text>)} 
 			</View>
 		</View>
 	);
@@ -45,30 +58,26 @@ export default function App() {
 
 // Our stylesheet object
 const styles = StyleSheet.create({
+
 	// the main container
 	appContainer: {
 		flex: 1,
-		padding: 50,
-		paddingHorizontal: 16,
-	},
-
-	// dummy container
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
+		gap: 30,
+		padding: 60,
+		paddingHorizontal: 20,
 	},
 
 	// the input container
 	inputContainer: { 
 		flex: 1,
+		backgroundColor: "#eeeeee",
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		paddingHorizontal: 10,
 		alignItems: 'center',
-		paddingBottom: 24,
-		borderBottomWidth: 1,
-		borderBottomColor: '#cccccc'
+		borderRadius: 20,
+		borderBottomColor: '#cccccc',
+		
 	},
 
 	// for text input container
@@ -82,6 +91,27 @@ const styles = StyleSheet.create({
 
 	// goals container
 	goalsContainer: {
-		flex: 5
+		flex: 5,
+		padding: 20,
+		backgroundColor: "#eeeeee",
+		borderRadius: 30,
+	},
+
+	/**
+	 * Button styles go here
+	 */
+	appButtonContainer: {
+		elevation: 8,
+		backgroundColor: "#009688",
+		borderRadius: 10,
+		paddingVertical: 10,
+		paddingHorizontal: 12
+	},
+	appButtonText: {
+		fontSize: 18,
+		color: "#fff",
+		fontWeight: "bold",
+		alignSelf: "center",
+		textTransform: "uppercase"
 	}
 });
